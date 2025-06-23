@@ -195,7 +195,7 @@ export default function Component() {
                   >
                     <div>
                       <Label htmlFor="year" className="text-sm font-medium uppercase tracking-[0.1em] mb-2 sans-serif text-green-500">
-                        EAR
+                        YEAR
                       </Label>
                       <Input
                         id="year"
