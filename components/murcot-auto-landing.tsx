@@ -21,8 +21,10 @@ export default function Component() {
   })
 
   const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
     setIsVisible(true)
   }, [])
 
@@ -45,17 +47,60 @@ export default function Component() {
     }
   }
 
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return (
+      <div
+        className="relative min-h-screen text-white bg-cover bg-center"
+        style={{ backgroundImage: "url('/ea54560d-140f-4b1c-8c8f-f60ade8324e5.jpeg')" }}
+      >
+        <div className="absolute inset-0 bg-transparent" />
+        <div className="relative max-w-7xl mx-auto p-5">
+          {/* Loading state that matches the final layout */}
+          <div className="h-[65vh] p-8 flex flex-col items-center justify-center">
+            <div className="w-full flex justify-between items-start mb-8">
+              <div>
+                <h1 className="text-2xl font-bold tracking-[-0.02em] uppercase sans-serif">MURCOTAUTO INC.</h1>
+              </div>
+              <div className="text-right space-y-1 text-sm">
+                <div>Licensed Dealer</div>
+                <div>Secure Data</div>
+                <div>Trusted Service</div>
+              </div>
+            </div>
+            <div className="h-[50vh] flex items-center justify-center">
+              <div className="text-center space-y-6">
+                <p className="text-4xl font-bold tracking-tight">
+                  Done With Your Car? We Handle the Rest.
+                  <br />
+                  <span className="text-sm font-normal tracking-normal">No listings. No weird DMs. Just cash, convenience, and a quick goodbye.</span>
+                </p>
+                <div>
+                  <Button
+                    className="mt-10 bg-white text-black hover:bg-neutral-200 rounded-none py-4 px-8 text-base font-bold tracking-tight sans-serif transition-all duration-300 transform hover:border-1 border-black hover:shadow-lg"
+                  >
+                    Get Your Free Quote
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
-      className="relative min-h-screen text-white bg-cover bg-center"
-      style={{ backgroundImage: "url('/ef9c37b4-58f1-44e4-9c59-c91aa5d506b3.jpeg')" }}
+      className="relative min-h-screen text-white bg-cover bg-up"
+      style={{ backgroundImage: "url('/06c6a6fe-7ec9-454d-9edf-758ed0d0dd2b.jpeg')" }}
     >
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-transparent" />
       <div className="relative max-w-7xl mx-auto p-5">
         {/* Single Column Layout */}
         <div className="space-y-0">
           {/* Header Section */}
-          <div className="h-[65vh] p-8 flex flex-col items-center justify-center">
+          <div className="h-[70vh] p-8 flex flex-col items-center justify-center">
             <div 
               className={`w-full flex justify-between items-start mb-8 transition-all duration-1000 ease-out ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -73,14 +118,14 @@ export default function Component() {
             <div className="h-[50vh] flex items-center justify-center">
               <div className="text-center space-y-6">
                 <p 
-                  className={`text-4xl font-bold tracking-tight transition-all duration-1000 ease-out ${
+                  className={`text-5xl font-bold tracking-tight transition-all duration-1000 ease-out text-stone-200 ${
                     isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                   }`}
                   style={{ animationDelay: '0.8s' }}
                 >
                   Done With Your Car? We Handle the Rest.
                   <br />
-                  <span className="text-sm font-normal tracking-normal">No listings. No weird DMs. Just cash, convenience, and a quick goodbye.</span>
+                  <span className="text-lg font-normal tracking-normal">No listings. No weird DMs. Just cash, convenience, and a quick goodbye.</span>
                 </p>
                 <div 
                   className={`transition-all duration-1000 ease-out ${
@@ -90,7 +135,7 @@ export default function Component() {
                 >
                   <Button
                     onClick={scrollToVehicleDetails}
-                    className="mt-10 bg-white text-black hover:bg-gray-200 rounded-none py-4 px-8 text-base font-bold tracking-tight sans-serif transition-all duration-300 transform hover:border-1 border-black hover:shadow-lg"
+                    className="mt-10 bg-stone-200/70 border-2 border-black text-black hover:bg-neutral-500 hover:text-white rounded-none py-6 px-8 text-base font-bold tracking-tight font-mono uppercase transition-all duration-300 transform hover:border-2 border-black hover:shadow-lg"
                   >
                     Get Your Free Quote
                   </Button>
@@ -150,7 +195,7 @@ export default function Component() {
           {/* Main Form Section */}
           <div 
             id="vehicle-details"
-            className={`p-30 bg-black text-white pt-20 pb-20 transition-all duration-1000 ease-out ${
+            className={`p-30 bg-transparent text-white pt-20 pb-20 transition-all duration-1000 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{ animationDelay: '1.5s' }}
@@ -348,7 +393,7 @@ export default function Component() {
               >
                 <Button
                   type="submit"
-                  className="bg-white text-black hover:bg-gray-200 rounded-none py-6 text-base font-bold tracking-tight sans-serif transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  className="mt-10 bg-stone-200  text-black hover:bg-stone-500 hover:text-white rounded-none py-6 px-8 text-base font-bold tracking-tight font-mono uppercase transition-all duration-300 transform hover:border-2 border-black hover:shadow-lg"
                 >
                   What's My Car Worth?
                 </Button>
